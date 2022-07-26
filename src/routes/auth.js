@@ -22,11 +22,13 @@ const router = Router()
 //   }
 // })
 
+//login user
 router.post('/login', passport.authenticate('local'), (req, res) => {
   console.log('logged in')
   res.send(200)
 })
 
+//register new user
 router.post('/register', async (req, res) => {
   const { email } = req.body
   const userDB = await User.findOne({ email })
@@ -38,6 +40,17 @@ router.post('/register', async (req, res) => {
     const newUser = await User.create({ password, email })
     res.send(201)
   }
+})
+
+router.use((req, res, next) => {
+  console.log('inside check')
+  if (req.user) next()
+  else res.send(401)
+})
+
+router.get('/users', async (req, res) => {
+  const users = await User.find()
+  res.send(users)
 })
 
 module.exports = router

@@ -23,7 +23,7 @@ const onSubmit = async (values, actions) => {
     email: values.email,
     password: values.password,
   }
-  console.log(values)
+
   await axios
     .post('http://localhost:3001/api/auth/login', loginBody, {
       headers: {
@@ -31,15 +31,16 @@ const onSubmit = async (values, actions) => {
       },
       withCredentials: true,
     })
-    .then(() => {
-      console.log('success')
+    .then((res) => {
+      if (res.status === 200) {
+        Router.push({
+          pathname: '/profile',
+        })
+      }
     })
     .catch((err) => {
       console.log(err)
     })
-  Router.push({
-    pathname: '/profile',
-  })
 }
 
 const Login = () => {
