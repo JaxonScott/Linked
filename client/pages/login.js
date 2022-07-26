@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   Container,
   Text,
@@ -18,9 +19,24 @@ import { FormikProvider, useFormik } from 'formik'
 import { loginSchema } from '../schemas'
 
 const onSubmit = async (values, actions) => {
+  const loginBody = {
+    email: values.email,
+    password: values.password,
+  }
   console.log(values)
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  actions.resetForm()
+  await axios
+    .post('http://localhost:3001/api/auth/login', loginBody, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then(() => {
+      console.log('success')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   Router.push({
     pathname: '/profile',
   })
