@@ -1,0 +1,27 @@
+{
+  "name": "linked",
+  "version": "1.0.0",
+  "description": "A simple web app that allows you to link all your socails in one place",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "next build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.4",
+    "@chakra-ui/react": "^2.2.4",
+    "@emotion/styled": "^11.9.3",
+    "@react-three/drei": "^9.17.2",
+    "@react-three/fiber": "^8.2.0",
+    "formik": "^2.2.9",
+    "framer-motion": "^6.5.1",
+    "next": "^12.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "three": "^0.142.0",
+    "yup": "^0.32.11"
+  }
+}
