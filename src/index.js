@@ -9,6 +9,7 @@ require('dotenv').config()
 //routes
 const textRoute = require('./routes/test')
 const authRoute = require('./routes/auth')
+const profileRoute = require('./routes/profiles')
 require('./strategies/local')
 require('./database')
 
@@ -41,6 +42,7 @@ app.use(passport.session())
 
 app.use('/api/text', textRoute)
 app.use('/api/auth', authRoute)
+app.use('/api/user', profileRoute)
 
 app.get('/', (req, res) => {
   res.send('Hello')

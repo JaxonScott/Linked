@@ -31,7 +31,7 @@ export const createLinkSchema = yup.object().shape({
       'Twitter',
       'Twitch',
       'Github',
-      'Faceook',
+      'Facebook',
       'Tiktok',
       'Youtube',
       'Discord',

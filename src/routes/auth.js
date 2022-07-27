@@ -6,25 +6,11 @@ const User = require('../database/schemas/User')
 
 const router = Router()
 
-// router.post('/login', async (req, res) => {
-//   const { email, password } = req.body
-//   if (!email || !password) return res.send(400)
-//   const userDB = await User.findOne({ email })
-//   if (!userDB) return res.send(401)
-//   const isValid = comparePassword(password, userDB.password)
-//   if (isValid) {
-//     console.log('auth successfully')
-//     req.session.user = userDB
-//     return res.send(200)
-//   } else {
-//     console.log('auth failed')
-//     return res.send(401)
-//   }
-// })
-
 //login user
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  console.log('logged in')
+  console.log(
+    'logged in ' + req.sessionID + 'user id' + req.session.passport.user
+  )
   res.send(200)
 })
 
@@ -37,7 +23,11 @@ router.post('/register', async (req, res) => {
   } else {
     const password = hashPassword(req.body.password)
     console.log(password)
-    const newUser = await User.create({ password, email })
+    const newUser = await User.create({
+      username: req.body.username,
+      password,
+      email,
+    })
     res.send(201)
   }
 })

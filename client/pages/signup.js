@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   Container,
   FormControl,
@@ -19,13 +20,30 @@ import { motion } from 'framer-motion'
 import { signUpSchema } from '../schemas'
 
 const onSubmit = async (values, actions) => {
-  console.log(values)
-  console.log(actions)
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  actions.resetForm()
-  Router.push({
-    pathname: '/newuser',
-  })
+  const registerBody = {
+    username: values.username,
+    email: values.email,
+    password: values.password,
+  }
+  axios
+    .post('http://localhost:3001/api/auth/register', registerBody, {
+      header: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then((res) => {
+      if (res.status === 201) {
+        Router.push({
+          pathname: '/login',
+        })
+      }
+
+      actions.resetForm()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 const Signup = () => {

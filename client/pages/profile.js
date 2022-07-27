@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
   Container,
   Box,
@@ -19,6 +21,25 @@ import { motion } from 'framer-motion'
 import ProfilePicture from '../components/profilePicture'
 
 const Profile = () => {
+  const [userData, setUserData] = useState([])
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/api/user/profile', {
+        header: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUserData(res.data)
+        setLoading(false)
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
   return (
     <Container>
       <Box display={{ md: 'flex' }}>
@@ -39,49 +60,23 @@ const Profile = () => {
             },
           }}
         >
-          <ProfilePicture src={'/images/jaxon.jpg'} />
+          <ProfilePicture
+            src={
+              userData.profilePicture === ''
+                ? '/images/default-pfp.jpg'
+                : userData.profilePicture
+            }
+          />
         </motion.div>
         <Box flexGrow={1}>
           <Heading as='h2' variant='section-title' align='center'>
-            JaxonCodes
+            {userData.username}
           </Heading>
         </Box>
       </Box>
 
       <Box mt={12}>
         <List spacing={4}>
-          <ListItem>
-            <Linkbtn
-              href={'https://www.instagram.com/'}
-              icon={<IoLogoInstagram />}
-            >
-              JaxonCodes
-            </Linkbtn>
-          </ListItem>
-          <ListItem>
-            <Linkbtn
-              href={'https://github.com/JaxonScott'}
-              icon={<IoLogoGithub />}
-            >
-              JaxonScott
-            </Linkbtn>
-          </ListItem>
-          <ListItem>
-            <Linkbtn
-              href={'https://twitter.com/jaxoncodes'}
-              icon={<IoLogoTwitter />}
-            >
-              Jaxoncodes
-            </Linkbtn>
-          </ListItem>
-          <ListItem>
-            <Linkbtn
-              href={'https://jaxoncodes-website.vercel.app/'}
-              icon={<IoCodeSlash />}
-            >
-              My Website
-            </Linkbtn>
-          </ListItem>
           <ListItem>
             <AddLinkBtn />
           </ListItem>
