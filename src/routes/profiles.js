@@ -29,8 +29,20 @@ router.get('/profile', async (req, res) => {
   }
 })
 
-router.patch('/profile/:id', async (req, res) => {
-  const userID = req.params.id
+// router.patch('/profile/:id', async (req, res) => {
+//   const userID = req.params.id
+//   const newLinks = req.body.links
+//   try {
+//     const profile = await User.findOneAndUpdate(userID, {
+//       $push: { links: newLinks },
+//     })
+//     res.send(profile)
+//   } catch (err) {
+//     console.log(err)
+//   }
+// })
+router.patch('/profile/', async (req, res) => {
+  const userID = req.session.passport.user
   const newLinks = req.body.links
   try {
     const profile = await User.findOneAndUpdate(userID, {

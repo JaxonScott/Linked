@@ -19,11 +19,32 @@ import { createLinkSchema } from '../schemas'
 
 const onSubmit = async (values, actions) => {
   console.log(values)
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  const links = {
+    platform: values.platform,
+    title: values.title,
+    link: values.link,
+  }
+  await axios
+    .patch(
+      'http://localhost:3001/api/user/profile/',
+      { links },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      }
+    )
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   actions.resetForm()
 }
 
-const AddLinkBtn = () => {
+const AddLinkBtn = ({ setUpdate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {

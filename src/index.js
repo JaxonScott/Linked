@@ -29,6 +29,7 @@ app.use(
     store: MongoStore.create({
       mongoUrl: process.env.DB_URI,
     }),
+    cookie: { httpOnly: false },
   })
 )
 
