@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 import {
   Container,
   Box,
@@ -11,6 +13,17 @@ import NextLink from 'next/link'
 import MovingModel from '../components/movingModel'
 
 const Page = () => {
+  const [loggedIn, setLoggedIn] = useState(false)
+  useEffect(() => {
+    const verify = Cookies.get('connect.sid')
+    if (verify) {
+      setLoggedIn(true)
+      console.log(verify)
+      console.log(loggedIn)
+    } else {
+      console.log('no cookie')
+    }
+  }, [])
   return (
     <Container mt={12}>
       <Box>
@@ -39,12 +52,12 @@ const Page = () => {
       <Box>
         <NextLink href='/signup'>
           <Button w='100%' bg='teal'>
-            Sign Up
+            {!loggedIn ? 'Signup' : 'Logout'}
           </Button>
         </NextLink>
-        <NextLink href='/login'>
+        <NextLink href={!loggedIn ? '/login' : '/profile'}>
           <Button w='100%' bg='teal' mt={2}>
-            Log in
+            {!loggedIn ? 'Log in' : 'My Account'}
           </Button>
         </NextLink>
       </Box>

@@ -8,6 +8,7 @@ import {
   ListItem,
   Image,
 } from '@chakra-ui/react'
+
 import {
   IoLogoInstagram,
   IoLogoGithub,
@@ -24,7 +25,6 @@ import ProfilePicture from '../components/profilePicture'
 const Profile = () => {
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(true)
-  const [update, setUpdate] = useState()
   useEffect(() => {
     axios
       .get('http://localhost:3001/api/user/profile', {
@@ -41,7 +41,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err)
       })
-  }, [update])
+  }, [])
   if (!loading) {
     userData.links.map((i) => {
       console.log(i)
@@ -93,7 +93,7 @@ const Profile = () => {
               )
             })}
             <ListItem>
-              <AddLinkBtn setUpdate={setUpdate} />
+              <AddLinkBtn />
             </ListItem>
           </List>
         </Box>

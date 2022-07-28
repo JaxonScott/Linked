@@ -7,4 +7,10 @@ export default function middleware(req) {
   if (!verify && url.includes('/profile')) {
     return NextResponse.redirect('http://localhost:3000/login/')
   }
+  if (verify && url.includes('/login')) {
+    return NextResponse.redirect('http://localhost:3000/profile/')
+  }
+  if (verify && url.includes('/signup')) {
+    return NextResponse.redirect('http://localhost:3000/profile/')
+  }
 }

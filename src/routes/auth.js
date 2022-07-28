@@ -38,6 +38,15 @@ router.use((req, res, next) => {
   else res.send(401)
 })
 
+router.post('/logout', (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err)
+    }
+    res.redirect('/')
+  })
+})
+
 router.get('/users', async (req, res) => {
   const users = await User.find()
   res.send(users)

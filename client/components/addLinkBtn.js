@@ -44,7 +44,7 @@ const onSubmit = async (values, actions) => {
   actions.resetForm()
 }
 
-const AddLinkBtn = ({ setUpdate }) => {
+const AddLinkBtn = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
