@@ -8,7 +8,6 @@ import {
   Divider,
   Button,
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import NextLink from 'next/link'
 import MovingModel from '../components/movingModel'
 

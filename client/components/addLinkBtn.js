@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Router from 'next/router'
 import {
   Button,
   Modal,
@@ -37,6 +38,7 @@ const onSubmit = async (values, actions) => {
     )
     .then((res) => {
       console.log(res.data)
+      Router.reload(window.location.pathname)
     })
     .catch((err) => {
       console.log(err)
